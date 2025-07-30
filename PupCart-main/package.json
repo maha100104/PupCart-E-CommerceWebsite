@@ -3,7 +3,7 @@
   "name": "pupcart-store",
   "version": "1.0.0",
   "private": true,
-  "author": "Codescandy Team",
+  "author": "Mahalakshmi P",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

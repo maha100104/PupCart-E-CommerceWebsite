@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import PersonalInfo from "@/components/profilepage/personal-info";
-//import MyOrders from "@/components/profilepage/orders";
+
 import MyOrdersSection from "@/components/profilepage/orders"
 import OrderTrackingSection from "@/components/profilepage/coupons"
 

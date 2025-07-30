@@ -38,7 +38,7 @@ export default function CheckoutPage() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
-
+  
   const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const discount = appliedCoupon ? (subtotal * appliedCoupon.discount) / 100 : 0;
   const total = subtotal + (subtotal > 35 ? 0 : 5.99) - discount;
@@ -96,15 +96,14 @@ export default function CheckoutPage() {
     setOrderPlaced(true);
     clearCart();
       if (paymentMethod === "upi") {
-    router.push("/upi-payment"); // ✅ Only redirect if UPI
+    router.push("/upi-payment"); 
   } else {
     toast({
       title: "Order placed!",
       description: "Thank you for your purchase. Your order will be delivered soon.",
     });
   }
-   // router.push("/upi-payment");
-    //toast({ title: "Order placed!", description: "Thank you for your purchase." });
+   
   };
 
   if (cartItems.length === 0) {

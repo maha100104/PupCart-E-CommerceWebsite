@@ -1,4 +1,4 @@
-// app/data/customer-service-faq.ts
+
 export const customerServiceFAQ = [
   {
     question: "Where is my order?",

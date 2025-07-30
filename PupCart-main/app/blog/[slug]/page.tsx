@@ -1,4 +1,4 @@
-// src/app/blog/[slug]/page.tsx
+
 import { notFound } from 'next/navigation';
 
 const blogData: Record<

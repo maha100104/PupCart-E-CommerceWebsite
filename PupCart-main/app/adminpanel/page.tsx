@@ -27,20 +27,13 @@ export default function AdminPanel() {
   const [newTrackingStep, setNewTrackingStep] = useState<string>('');
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
-//   useEffect(() => {
-//     const stored = localStorage.getItem('orders');
-//     if (stored) {
-//       setOrders(JSON.parse(stored));
-//     }
-//   }, []);
-
 useEffect(() => {
   const stored = localStorage.getItem('orders');
   if (stored) {
     const parsed: Order[] = JSON.parse(stored);
     const safeOrders = parsed.map((order) => ({
       ...order,
-      trackingStatus: order.trackingStatus ?? [], // fallback if missing
+      trackingStatus: order.trackingStatus ?? [], 
     }));
     setOrders(safeOrders);
   }
