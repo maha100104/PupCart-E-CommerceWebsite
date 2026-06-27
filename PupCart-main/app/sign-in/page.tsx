@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
-import ReCAPTCHA from "react-google-recaptcha";
 import { Eye, EyeOff } from "lucide-react"; // Add at the top
 
 export default function SignInPage() {
@@ -17,8 +16,6 @@ export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-const siteKey = "6LfStXArAAAAABVMoejJ6m-flhKBU2HkVzZRxP0p";
 // Inside your component:
 const [showPassword, setShowPassword] = useState(false);
 
@@ -30,12 +27,6 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setIsLoading(true);
   setError("");
-
-  if (!captchaToken) {
-    setError("Please complete the CAPTCHA.");
-    setIsLoading(false);
-    return;
-  }
 
   try {
     await signIn({ email, password });
@@ -133,13 +124,6 @@ const handleLogin = async (e: React.FormEvent) => {
 </div>
 
   
-
-
-          <ReCAPTCHA
-  sitekey={siteKey}
-  onChange={(token) => setCaptchaToken(token)}
-  className="mx-auto"
-/>
 
 
           <Button type="submit" className="w-full" disabled={isLoading}>
