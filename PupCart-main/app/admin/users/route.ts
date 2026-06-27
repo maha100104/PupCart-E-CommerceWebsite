@@ -1,6 +1,8 @@
 import { connectToDB } from "@/lib/mongodb"
 import User from "@/models/user"
 
+export const dynamic = "force-dynamic"
+
 export async function GET() {
   await connectToDB()
   const users = await User.find()
