@@ -1,12 +1,6 @@
 "use client";
 
 import React, { useState,useEffect} from "react";
-import { Metadata } from "next"
-export const metadata:Metadata={
-  title:{
-    absolute:"PupCart-Careers Apply Page"
-  }
-}
 
 export default function ApplicationForm() {
   useEffect(() => {
