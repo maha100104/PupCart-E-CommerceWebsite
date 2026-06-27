@@ -546,6 +546,7 @@ import {
   Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { toast } from "@/hooks/use-toast"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/components/cart-provider"
 import { cn } from "@/lib/utils"
@@ -704,6 +705,10 @@ export default function Header() {
                   setIsLoggingOut(true)
                   try {
                     await signOut()
+                    toast({
+                      title: "Logged Out",
+                      description: "You have successfully logged out.",
+                    })
                     router.push("/sign-in")
                   } catch (err) {
                     console.error("Logout failed:", err)

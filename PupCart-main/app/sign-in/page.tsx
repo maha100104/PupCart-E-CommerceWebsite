@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { Eye, EyeOff } from "lucide-react"; // Add at the top
+import { toast } from "@/hooks/use-toast";
 
 export default function SignInPage() {
   const { user, signIn, signInWithGoogle } = useAuth();
@@ -30,6 +31,10 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   try {
     await signIn({ email, password });
+    toast({
+      title: "Signed In Successfully",
+      description: "Welcome back to PupCart!",
+    });
     router.push("/");
   } catch (err: any) {
     setError(err.message || "Login failed.");
@@ -44,6 +49,10 @@ const handleSubmit = async (e: React.FormEvent) => {
     setError("");
     try {
       await signInWithGoogle();
+      toast({
+        title: "Signed In Successfully",
+        description: "Welcome back to PupCart!",
+      });
       router.push("/");
     } catch (err: any) {
       if (err.code !== "auth/popup-closed-by-user" && !err.message?.includes("popup-closed-by-user")) {

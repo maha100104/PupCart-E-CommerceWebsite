@@ -520,6 +520,7 @@ import {
 } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
+import { toast } from "@/hooks/use-toast";
 import {
   doc,
   getDoc,
@@ -587,6 +588,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     setCartItems(updatedCart);
     saveCart(updatedCart);
+
+    toast({
+      title: "Added to Cart!",
+      description: `${item.name} has been added to your cart.`,
+    });
   };
 
   const removeFromCart = (id: string) => {
