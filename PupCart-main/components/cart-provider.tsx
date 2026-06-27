@@ -592,6 +592,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     toast({
       title: "Added to Cart!",
       description: `${item.name} has been added to your cart.`,
+      variant: "success",
     });
   };
 

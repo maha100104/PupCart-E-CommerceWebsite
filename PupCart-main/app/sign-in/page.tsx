@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
-import { Eye, EyeOff } from "lucide-react"; // Add at the top
+import { Eye, EyeOff, Loader2 } from "lucide-react"; // Add at the top
 import { toast } from "@/hooks/use-toast";
 
 export default function SignInPage() {
@@ -34,10 +34,16 @@ const handleSubmit = async (e: React.FormEvent) => {
     toast({
       title: "Signed In Successfully",
       description: "Welcome back to PupCart!",
+      variant: "success",
     });
     router.push("/");
   } catch (err: any) {
     setError(err.message || "Login failed.");
+    toast({
+      title: "Login Failed",
+      description: err.message || "Please check your credentials.",
+      variant: "destructive",
+    });
   } finally {
     setIsLoading(false);
   }
@@ -52,11 +58,17 @@ const handleSubmit = async (e: React.FormEvent) => {
       toast({
         title: "Signed In Successfully",
         description: "Welcome back to PupCart!",
+        variant: "success",
       });
       router.push("/");
     } catch (err: any) {
       if (err.code !== "auth/popup-closed-by-user" && !err.message?.includes("popup-closed-by-user")) {
         setError(err.message || "Google sign-in failed.");
+        toast({
+          title: "Google Sign-in Failed",
+          description: err.message || "Please try again.",
+          variant: "destructive",
+        });
       }
     } finally {
       setIsLoading(false);
@@ -91,9 +103,19 @@ const handleLogin = async (e: React.FormEvent) => {
 
         <button
           onClick={handleGoogleSignIn}
-          className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-md hover:bg-gray-100"
+          disabled={isLoading}
+          className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-md hover:bg-gray-100 disabled:opacity-50"
         >
-          <FcGoogle className="mr-2 text-xl" /> Sign in with Google
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin text-primary" />
+              Connecting...
+            </>
+          ) : (
+            <>
+              <FcGoogle className="mr-2 text-xl" /> Sign in with Google
+            </>
+          )}
         </button>
 
         <div className="text-center my-4 text-gray-500">OR</div>
@@ -139,7 +161,14 @@ const handleLogin = async (e: React.FormEvent) => {
 
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
 

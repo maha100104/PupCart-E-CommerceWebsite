@@ -701,6 +701,7 @@ export default function Header() {
               <Button
                 variant="default"
                 size="sm"
+                disabled={isLoggingOut}
                 onClick={async () => {
                   setIsLoggingOut(true)
                   try {
@@ -708,6 +709,7 @@ export default function Header() {
                     toast({
                       title: "Logged Out",
                       description: "You have successfully logged out.",
+                      variant: "success",
                     })
                     router.push("/sign-in")
                   } catch (err) {
@@ -717,7 +719,14 @@ export default function Header() {
                   }
                 }}
               >
-                Log Out
+                {isLoggingOut ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Logging out...
+                  </>
+                ) : (
+                  "Log Out"
+                )}
               </Button>
 
             </>
