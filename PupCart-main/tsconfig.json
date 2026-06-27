@@ -51,8 +51,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/mongodb.js",
-    "app/api/user/[id]/route.ts",
     "types"
   ],
   "exclude": ["node_modules"]
