@@ -62,8 +62,9 @@ Early detection of illness can make all the difference in your pet's health. Wat
   },
 };
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = blogData[params.slug];
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = blogData[slug];
 
   if (!post) return notFound();
 
