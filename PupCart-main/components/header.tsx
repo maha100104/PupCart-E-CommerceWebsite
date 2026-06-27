@@ -543,6 +543,7 @@ import {
   Dog,
   Bird,
   Droplet,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -562,12 +563,21 @@ export default function Header() {
 
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0)
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
 
 
   const profileImage = user?.photoURL || "https://i.pravatar.cc/40"
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {isLoggingOut && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
+          <div className="flex flex-col items-center space-y-4 p-6 bg-white dark:bg-black rounded-xl shadow-lg border">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-sm font-medium text-muted-foreground animate-pulse">Logging out...</p>
+          </div>
+        </div>
+      )}
       <div className="container flex h-16 items-center">
         {/* Mobile Menu Toggle */}
         <div className="md:hidden">
@@ -687,8 +697,22 @@ export default function Header() {
                   className="w-8 h-8 rounded-full border hover:opacity-90"
                 />
               </Link>
-              <Button variant="default" size="sm" onClick={() => { signOut() 
-              router.push("/sign-in")}}>Log Out
+              <Button
+                variant="default"
+                size="sm"
+                onClick={async () => {
+                  setIsLoggingOut(true)
+                  try {
+                    await signOut()
+                    router.push("/sign-in")
+                  } catch (err) {
+                    console.error("Logout failed:", err)
+                  } finally {
+                    setIsLoggingOut(false)
+                  }
+                }}
+              >
+                Log Out
               </Button>
 
             </>

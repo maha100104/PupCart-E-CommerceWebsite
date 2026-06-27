@@ -41,11 +41,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
+    setError("");
     try {
       await signInWithGoogle();
       router.push("/");
     } catch (err: any) {
-      setError(err.message || "Google sign-in failed.");
+      if (err.code !== "auth/popup-closed-by-user" && !err.message?.includes("popup-closed-by-user")) {
+        setError(err.message || "Google sign-in failed.");
+      }
     } finally {
       setIsLoading(false);
     }
