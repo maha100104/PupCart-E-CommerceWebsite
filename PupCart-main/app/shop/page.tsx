@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
-import { useState, useMemo } from "react"
+import { useState, useMemo, Suspense } from "react"
 import { products } from "@/lib/products"
 import ProductGrid from "@/components/product-grid"
 import ShopFilters from "@/components/shop-filters"
@@ -15,7 +15,7 @@ import {
 import { Filter } from "lucide-react"
 import MobileFilters from "@/components/mobile-filter"
 
-export default function ShopPage() {
+function ShopPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -98,5 +98,17 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="container px-4 py-8 md:py-12 text-center text-gray-500">
+        Loading shop...
+      </div>
+    }>
+      <ShopPageContent />
+    </Suspense>
   )
 }
